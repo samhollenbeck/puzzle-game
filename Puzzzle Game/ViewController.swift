@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
         print("lol")
         var str = sender.text!
@@ -55,6 +56,7 @@ class ViewController: UIViewController {
     @IBAction func checkSolution(_ sender: Any) {
         
         
+        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
         boxOne = Int(boxOneText.text!)!
         boxTwo = Int(boxTwoText.text!)!
         boxThree = Int(boxThreeText.text!)!
@@ -68,6 +70,7 @@ class ViewController: UIViewController {
         let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
         
         var i = 0;
+        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
         let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
         var didItWork = true;
         while i <= 2
@@ -80,6 +83,7 @@ class ViewController: UIViewController {
             i = i + 1;
         }
         
+        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
         var j = 0;
         while j <= 2
         {
@@ -90,6 +94,7 @@ class ViewController: UIViewController {
             j = j + 1;
         }
         
+        //DISPLAYS IF SOLUTION WAS CORRECT
         if didItWork == true
         {
             winLabel.text = "Correct";
@@ -106,6 +111,7 @@ class ViewController: UIViewController {
             // Dispose of any resources that can be recreated.
         }
     }
+    //CHECKS TO SEE IF A STRING CONTAINS ONLY NUMERIC CHARACTERS
     func isNumber(input: String) -> Bool {
         
         let num = Int(input)
