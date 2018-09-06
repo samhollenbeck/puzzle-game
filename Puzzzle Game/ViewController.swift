@@ -8,7 +8,6 @@
 
 import UIKit
 
-//DEFINE INT VARIABLES FOR EACH BOX
 var boxOne = 0
 var boxTwo  = 0
 var boxThree = 0
@@ -20,7 +19,7 @@ var boxEight = 0
 var boxNine = 0
 
 //DEFINE MATRIX OF THE INT VARIABLES
-let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
+
 
 class ViewController: UIViewController {
 
@@ -55,6 +54,7 @@ class ViewController: UIViewController {
     // CHECKS IF SOULTION IS CORRECT
     @IBAction func checkSolution(_ sender: Any) {
         
+        
         boxOne = Int(boxOneText.text!)!
         boxTwo = Int(boxTwoText.text!)!
         boxThree = Int(boxThreeText.text!)!
@@ -65,6 +65,8 @@ class ViewController: UIViewController {
         boxEight = Int(boxEightText.text!)!
         boxNine = Int(boxNineText.text!)!
         
+        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
+        
         var i = 0;
         let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
         var didItWork = true;
@@ -72,6 +74,7 @@ class ViewController: UIViewController {
         {
             if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
             {
+                
                 didItWork = false;
             }
             i = i + 1;
