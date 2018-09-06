@@ -42,7 +42,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func formValidation(_ sender: UITextField) {
-        if sender.text(in: <#T##UITextRange#>)
+        print("lol")
+        var str = sender.text!
+        for char in str {
+            if (!isNumber(input: "\(char)")) {
+                str = str.replacingOccurrences(of: "\(char)", with: "")
+            }
+        }
+        print(str)
+        sender.text = str;
     }
     // CHECKS IF SOULTION IS CORRECT
     @IBAction func checkSolution(_ sender: Any) {
@@ -94,32 +102,23 @@ class ViewController: UIViewController {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
         }
-        
-        
-        func isNumber(input: String) -> Bool {
-            
-            let num = Int(input)
-            if num != nil
-            {
-                print("Valid Number")
-           
-            }
-            else
-            {
-                print("Invalid Number");
-                winLabel.text = "Make sure all inputs are numbers.";
-            }
-            return false;
-        }
-    
-       
-        // func assignText(textFieldString: String, boxNumber: Int){
-        //    if isNumber(input: textFieldString) == true {
-                
-        //    }
-            
-        }
-
     }
+    func isNumber(input: String) -> Bool {
+        
+        let num = Int(input)
+        if num != nil
+        {
+            print("Valid Number")
+            return true;
+        }
+        else
+        {
+            print("Invalid Number");
+            winLabel.text = "Make sure all inputs are numbers.";
+        }
+        return false;
+    }
+}
+
 
 
