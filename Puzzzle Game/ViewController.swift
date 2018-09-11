@@ -18,7 +18,13 @@ var boxSeven = 0
 var boxEight = 0
 var boxNine = 0
 
-var isChallengeMode = false
+var isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
+
+var isChallengeMode = false;
+
+var arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
+
+
 
 
 //DEFINE MATRIX OF THE INT VARIABLES
@@ -38,6 +44,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var boxNineText: UITextField!
     @IBOutlet weak var winLabel: UILabel!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -54,6 +61,29 @@ class ViewController: UIViewController {
         }
         print(str)
         sender.text = str;
+        
+       enforceUneditableChallengeFields()
+        
+    }
+    
+    func enforceUneditableChallengeFields() {
+        var i = 0;
+        var j = 0;
+        
+        while i <= 2
+        {
+            while j <= 2
+            {
+                if isFieldInChallengeMode[i][j] == true
+                {
+                    let textField = arrayOfTextField[i][j];
+                    textField?.text = String(arrayOfBoxes);
+                }
+                j = j + 1
+            }
+            i = i + 1
+        }
+        
     }
     // CHECKS IF SOULTION IS CORRECT
     @IBAction func checkSolution(_ sender: Any) {
@@ -170,20 +200,21 @@ class ViewController: UIViewController {
     
     @IBAction func challengeMode(_ sender: Any) {
         
-        var arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
-        
         var arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
+        
         
         
         var i = 0
         while i <= 2
         {
-            let x = Int(arc4random_uniform(4) + 1)
-            let y = Int(arc4random_uniform(4) + 1)
+            let x = Int(arc4random_uniform(3))
+            let y = Int(arc4random_uniform(3))
             let num = Int(arc4random_uniform(16) + 1)
             
-            var textField = arrayOfTextField[x][y];
+            let textField = arrayOfTextField[x][y];
+            isFieldInChallengeMode[x][y] = true;
             textField?.text = String(num);
+            arrayOfBoxes[x][y] = num;
             i = i + 1
         }
     }
