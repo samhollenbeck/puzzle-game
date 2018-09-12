@@ -49,9 +49,146 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    // CHECKS IF SOULTION IS CORRECT
+    @IBAction func checkSolution(_ sender: Any) {
+    
+        if isChallengeMode == false
+        {
+            regularModeCheckSolution()
+        }
+        else
+        {
+            challengeModeCheckSolution()
+        }
+    }
+    
+    func regularModeCheckSolution() {
+        
+        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
+        boxOne = Int(boxOneText.text!)!
+        boxTwo = Int(boxTwoText.text!)!
+        boxThree = Int(boxThreeText.text!)!
+        boxFour = Int(boxFourText.text!)!
+        boxFive = Int(boxFiveText.text!)!
+        boxSix = Int(boxSixText.text!)!
+        boxSeven = Int(boxSevenText.text!)!
+        boxEight = Int(boxEightText.text!)!
+        boxNine = Int(boxNineText.text!)!
+        
+        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
+        
+        var i = 0;
+        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
+        let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
+        var didItWork = true;
+        while i <= 2
+        {
+            if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
+            {
+                
+                didItWork = false;
+            }
+            i = i + 1;
+        }
+        
+        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
+        var j = 0;
+        while j <= 2
+        {
+            if  arrayOfBoxes[j][0] + arrayOfBoxes[j][1] + arrayOfBoxes[j][2] != value
+            {
+                didItWork = false;
+            }
+            j = j + 1;
+        }
+        
+        //DISPLAYS IF SOLUTION WAS CORRECT
+        if didItWork == true
+        {
+            winLabel.text = "Correct";
+        }
+        else
+        {
+            winLabel.text = "Incorrect";
+        }
+    }
+    
+    
+    func challengeModeCheckSolution() {
+        
+        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
+        boxOne = Int(boxOneText.text!)!
+        boxTwo = Int(boxTwoText.text!)!
+        boxThree = Int(boxThreeText.text!)!
+        boxFour = Int(boxFourText.text!)!
+        boxFive = Int(boxFiveText.text!)!
+        boxSix = Int(boxSixText.text!)!
+        boxSeven = Int(boxSevenText.text!)!
+        boxEight = Int(boxEightText.text!)!
+        boxNine = Int(boxNineText.text!)!
+        
+        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
+        
+        var i = 0;
+        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
+        let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
+        var didItWork = true;
+        while i <= 2
+        {
+            if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
+            {
+                
+                didItWork = false;
+            }
+            i = i + 1;
+        }
+        
+        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
+        var j = 0;
+        while j <= 2
+        {
+            if  arrayOfBoxes[j][0] + arrayOfBoxes[j][1] + arrayOfBoxes[j][2] != value
+            {
+                didItWork = false;
+            }
+            j = j + 1;
+        }
+        
+        //DISPLAYS IF SOLUTION WAS CORRECT
+        if didItWork == true
+        {
+            winLabel.text = "Correct";
+        }
+        else
+        {
+            winLabel.text = "Incorrect";
+        }
+    }
+    
+    //RANDOMLY ASSIGNS VALUES TO FIELDS
+    @IBAction func challengeMode(_ sender: Any) {
+        
+        clearFields();
+        
+        arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
+        
+        var i = 0
+        while i <= 3
+        {
+            let x = Int(arc4random_uniform(3))
+            let y = Int(arc4random_uniform(3))
+            let num = Int(arc4random_uniform(16) + 1)
+            
+            let textField = arrayOfTextField[x][y];
+            isFieldInChallengeMode[x][y] = true;
+            textField!.text = String(num);
+            arrayOfBoxes[x][y] = num;
+            i = i + 1
+        }
+    }
+    
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
-        
         
         print("lol")
         var str = sender.text!
@@ -63,10 +200,11 @@ class ViewController: UIViewController {
         print(str)
         sender.text = str;
         
-       enforceUneditableChallengeFields()
+        enforceUneditableChallengeFields()
         
     }
     
+    //RESTRICTS USER FROM CHANGING THE VALUES IN FIELDS THAT WERE RANDOMLY ASSIGNED VALUES
     func enforceUneditableChallengeFields() {
         
         arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
@@ -89,166 +227,6 @@ class ViewController: UIViewController {
         }
         
     }
-    // CHECKS IF SOULTION IS CORRECT
-    @IBAction func checkSolution(_ sender: Any) {
-    
-        if isChallengeMode == false
-        {
-            regularModeCheckSolution()
-        }
-        else
-        {
-            challengeModeCheckSolution()
-        }
-    }
-    
-    func regularModeCheckSolution() {
-        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
-        boxOne = Int(boxOneText.text!)!
-        boxTwo = Int(boxTwoText.text!)!
-        boxThree = Int(boxThreeText.text!)!
-        boxFour = Int(boxFourText.text!)!
-        boxFive = Int(boxFiveText.text!)!
-        boxSix = Int(boxSixText.text!)!
-        boxSeven = Int(boxSevenText.text!)!
-        boxEight = Int(boxEightText.text!)!
-        boxNine = Int(boxNineText.text!)!
-        
-        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
-        
-        var i = 0;
-        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
-        let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
-        var didItWork = true;
-        while i <= 2
-        {
-            if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
-            {
-                
-                didItWork = false;
-            }
-            i = i + 1;
-        }
-        
-        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
-        var j = 0;
-        while j <= 2
-        {
-            if  arrayOfBoxes[j][0] + arrayOfBoxes[j][1] + arrayOfBoxes[j][2] != value
-            {
-                didItWork = false;
-            }
-            j = j + 1;
-        }
-        
-        //DISPLAYS IF SOLUTION WAS CORRECT
-        if didItWork == true
-        {
-            winLabel.text = "Correct";
-        }
-        else
-        {
-            winLabel.text = "Incorrect";
-        }
-    }
-    
-    func challengeModeCheckSolution() {
-        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
-        boxOne = Int(boxOneText.text!)!
-        boxTwo = Int(boxTwoText.text!)!
-        boxThree = Int(boxThreeText.text!)!
-        boxFour = Int(boxFourText.text!)!
-        boxFive = Int(boxFiveText.text!)!
-        boxSix = Int(boxSixText.text!)!
-        boxSeven = Int(boxSevenText.text!)!
-        boxEight = Int(boxEightText.text!)!
-        boxNine = Int(boxNineText.text!)!
-        
-        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
-        
-        var i = 0;
-        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
-        let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
-        var didItWork = true;
-        while i <= 2
-        {
-            if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
-            {
-                
-                didItWork = false;
-            }
-            i = i + 1;
-        }
-        
-        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
-        var j = 0;
-        while j <= 2
-        {
-            if  arrayOfBoxes[j][0] + arrayOfBoxes[j][1] + arrayOfBoxes[j][2] != value
-            {
-                didItWork = false;
-            }
-            j = j + 1;
-        }
-        
-        //DISPLAYS IF SOLUTION WAS CORRECT
-        if didItWork == true
-        {
-            winLabel.text = "Correct";
-        }
-        else
-        {
-            winLabel.text = "Incorrect";
-        }
-    }
-    
-    func clearFields() {
-        boxOneText.text = ""
-        boxTwoText.text = ""
-        boxThreeText.text = ""
-        boxFourText.text = ""
-        boxFiveText.text = ""
-        boxSixText.text = ""
-        boxSevenText.text = ""
-        boxEightText.text = ""
-        boxNineText.text = ""
-        
-        boxOne = 0
-        boxTwo  = 0
-        boxThree = 0
-        boxFour = 0
-        boxFive = 0
-        boxSix = 0
-        boxSeven = 0
-        boxEight = 0
-        boxNine = 0
-    }
-    
-    @IBAction func challengeMode(_ sender: Any) {
-        
-        clearFields();
-        
-        arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
-        
-        var i = 0
-        while i <= 3
-        {
-            let x = Int(arc4random_uniform(3))
-            let y = Int(arc4random_uniform(3))
-            let num = Int(arc4random_uniform(16) + 1)
-            
-            let textField = arrayOfTextField[x][y];
-            isFieldInChallengeMode[x][y] = true;
-            textField!.text = String(num);
-            arrayOfBoxes[x][y] = num;
-            i = i + 1
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     //CHECKS TO SEE IF A STRING CONTAINS ONLY NUMERIC CHARACTERS
     func isNumber(input: String) -> Bool {
@@ -266,7 +244,34 @@ class ViewController: UIViewController {
         }
         return false;
     }
+    
+    //CLEARS ALL TEXTFIELDS AND INT VARIABLES
+    func clearFields() {
+        
+        boxOneText.text = ""
+        boxTwoText.text = ""
+        boxThreeText.text = ""
+        boxFourText.text = ""
+        boxFiveText.text = ""
+        boxSixText.text = ""
+        boxSevenText.text = ""
+        boxEightText.text = ""
+        boxNineText.text = ""
+        
+        //CLEARS ALL INT VARIABLES
+        boxOne = 0
+        boxTwo  = 0
+        boxThree = 0
+        boxFour = 0
+        boxFive = 0
+        boxSix = 0
+        boxSeven = 0
+        boxEight = 0
+        boxNine = 0
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
-
-
-
