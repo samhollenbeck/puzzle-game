@@ -24,7 +24,7 @@ var isChallengeMode = false;
 
 var arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
 
-
+var arrayOfTextField = [[UITextField?]]()
 
 
 //DEFINE MATRIX OF THE INT VARIABLES
@@ -44,7 +44,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var boxNineText: UITextField!
     @IBOutlet weak var winLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -52,6 +51,8 @@ class ViewController: UIViewController {
     
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
+        
+        
         print("lol")
         var str = sender.text!
         for char in str {
@@ -67,6 +68,9 @@ class ViewController: UIViewController {
     }
     
     func enforceUneditableChallengeFields() {
+        
+        arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
+        
         var i = 0;
         var j = 0;
         
@@ -77,7 +81,7 @@ class ViewController: UIViewController {
                 if isFieldInChallengeMode[i][j] == true
                 {
                     let textField = arrayOfTextField[i][j];
-                    textField?.text = String(arrayOfBoxes);
+                    textField!.text = String(arrayOfBoxes[i][j]);
                 }
                 j = j + 1
             }
@@ -198,14 +202,36 @@ class ViewController: UIViewController {
         }
     }
     
+    func clearFields() {
+        boxOneText.text = ""
+        boxTwoText.text = ""
+        boxThreeText.text = ""
+        boxFourText.text = ""
+        boxFiveText.text = ""
+        boxSixText.text = ""
+        boxSevenText.text = ""
+        boxEightText.text = ""
+        boxNineText.text = ""
+        
+        boxOne = 0
+        boxTwo  = 0
+        boxThree = 0
+        boxFour = 0
+        boxFive = 0
+        boxSix = 0
+        boxSeven = 0
+        boxEight = 0
+        boxNine = 0
+    }
+    
     @IBAction func challengeMode(_ sender: Any) {
         
-        var arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
+        clearFields();
         
-        
+        arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
         
         var i = 0
-        while i <= 2
+        while i <= 3
         {
             let x = Int(arc4random_uniform(3))
             let y = Int(arc4random_uniform(3))
@@ -213,7 +239,7 @@ class ViewController: UIViewController {
             
             let textField = arrayOfTextField[x][y];
             isFieldInChallengeMode[x][y] = true;
-            textField?.text = String(num);
+            textField!.text = String(num);
             arrayOfBoxes[x][y] = num;
             i = i + 1
         }
