@@ -43,6 +43,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var boxEightText: UITextField!
     @IBOutlet weak var boxNineText: UITextField!
     @IBOutlet weak var winLabel: UILabel!
+    @IBOutlet weak var currentMode: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,9 +167,25 @@ class ViewController: UIViewController {
     }
     
     //RANDOMLY ASSIGNS VALUES TO FIELDS
-    @IBAction func challengeMode(_ sender: Any) {
+    @IBAction func switchModes(_ sender: Any) {
         
-        clearFields();
+        if isChallengeMode == false
+        {
+            isChallengeMode = true
+            currentMode.text = "Current Mode: Challenge"
+            challengeMode()
+        }
+        else
+        {
+            isChallengeMode = false;
+            currentMode.text = "Current Mode: Regular"
+            clearFields()
+        }
+    }
+    
+    func challengeMode() {
+        
+        clearFields()
         
         arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
         
@@ -246,6 +263,12 @@ class ViewController: UIViewController {
     }
     
     //CLEARS ALL TEXTFIELDS AND INT VARIABLES
+    @IBAction func clearFields(_ sender: Any) {
+       
+        clearFields()
+        
+    }
+    
     func clearFields() {
         
         boxOneText.text = ""
@@ -268,6 +291,11 @@ class ViewController: UIViewController {
         boxSeven = 0
         boxEight = 0
         boxNine = 0
+        
+        if isChallengeMode == true
+        {
+            challengeMode()
+        }
     }
     
     override func didReceiveMemoryWarning() {
