@@ -173,7 +173,8 @@ class ViewController: UIViewController {
         {
             isChallengeMode = true
             currentMode.text = "Current Mode: Challenge"
-            challengeMode()
+            clearFields()
+
         }
         else
         {
@@ -184,8 +185,6 @@ class ViewController: UIViewController {
     }
     
     func challengeMode() {
-        
-        clearFields()
         
         arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
         
@@ -207,7 +206,6 @@ class ViewController: UIViewController {
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
         
-        print("lol")
         var str = sender.text!
         for char in str {
             if (!isNumber(input: "\(char)")) {
