@@ -193,10 +193,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MST-WP-WIj">
-                                <rect key="frame" x="156" y="539" width="62" height="36"/>
+                                <rect key="frame" x="145" y="539" width="84" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="CLEAR">
+                                <state key="normal" title="RESTART">
                                     <color key="titleColor" red="0.0" green="0.27255344129999998" blue="0.99298101660000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>

@@ -131,6 +131,7 @@ class ViewController: UIViewController {
         let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
         
         var i = 0;
+        
         //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
         let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
         var didItWork = true;
@@ -205,18 +206,15 @@ class ViewController: UIViewController {
     
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
-        
         var str = sender.text!
         for char in str {
             if (!isNumber(input: "\(char)")) {
                 str = str.replacingOccurrences(of: "\(char)", with: "")
             }
         }
-        print(str)
+        //print(str)
         sender.text = str;
-        
         enforceUneditableChallengeFields()
-        
     }
     
     //RESTRICTS USER FROM CHANGING THE VALUES IN FIELDS THAT WERE RANDOMLY ASSIGNED VALUES
@@ -224,23 +222,16 @@ class ViewController: UIViewController {
         
         arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
         
-        var i = 0;
-        var j = 0;
-        
-        while i <= 2
-        {
-            while j <= 2
-            {
+        for i in 0...2 {
+            for j in 0...2 {
                 if isFieldInChallengeMode[i][j] == true
                 {
                     let textField = arrayOfTextField[i][j];
                     textField!.text = String(arrayOfBoxes[i][j]);
+                    
                 }
-                j = j + 1
             }
-            i = i + 1
         }
-        
     }
     
     //CHECKS TO SEE IF A STRING CONTAINS ONLY NUMERIC CHARACTERS
@@ -255,7 +246,7 @@ class ViewController: UIViewController {
         else
         {
             print("Invalid Number");
-            winLabel.text = "Make sure all inputs are numbers.";
+            //winLabel.text = "Make sure all inputs are numbers.";
         }
         return false;
     }
@@ -289,6 +280,8 @@ class ViewController: UIViewController {
         boxSeven = 0
         boxEight = 0
         boxNine = 0
+        
+        isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
         
         if isChallengeMode == true
         {
