@@ -269,6 +269,7 @@ class ViewController: UIViewController {
         boxSevenText.text = ""
         boxEightText.text = ""
         boxNineText.text = ""
+        winLabel.text = ""
         
         //CLEARS ALL INT VARIABLES
         boxOne = 0
