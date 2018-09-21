@@ -207,12 +207,26 @@ class ViewController: UIViewController {
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
     @IBAction func formValidation(_ sender: UITextField) {
         var str = sender.text!
+        var isNegative = false
+        
+        //CHECK IF NUMBER IS NEGATIVE
+        if str.prefix(1) == "-"
+        {
+            isNegative = true
+        }
+        
+        //CHECK IF EACH CHARACTER IS A NUMBER
         for char in str {
             if (!isNumber(input: "\(char)")) {
                 str = str.replacingOccurrences(of: "\(char)", with: "")
             }
         }
-        //print(str)
+        
+        if(isNegative == true)
+        {
+            str = "-" + str
+        }
+        
         sender.text = str;
         enforceUneditableChallengeFields()
     }
