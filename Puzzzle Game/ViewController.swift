@@ -199,6 +199,7 @@ class ViewController: UIViewController {
             let textField = arrayOfTextField[x][y];
             isFieldInChallengeMode[x][y] = true;
             textField!.text = String(num);
+            textField!.font = UIFont.systemFont(ofSize: 14.0, weight: .bold)
             arrayOfBoxes[x][y] = num;
             i = i + 1
         }
@@ -301,6 +302,17 @@ class ViewController: UIViewController {
         if isChallengeMode == true
         {
             challengeMode()
+        }
+        else
+        {
+            for i in 0...2
+            {
+                for j in 0...2
+                {
+                    let textField = arrayOfTextField[i][j];
+                    textField!.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
+                }
+            }
         }
     }
     
