@@ -196,6 +196,11 @@ class ViewController: UIViewController {
             let y = Int(arc4random_uniform(3))
             let num = Int(arc4random_uniform(16) + 1)
             
+            if isFieldInChallengeMode[x][y] == true
+            {
+                continue;
+            }
+            
             let textField = arrayOfTextField[x][y];
             isFieldInChallengeMode[x][y] = true;
             textField!.text = String(num);
