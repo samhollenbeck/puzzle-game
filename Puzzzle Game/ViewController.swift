@@ -20,15 +20,11 @@ var boxNine = 0
 
 var isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
 
-var isChallengeMode = false;
+var mode = "regular"
 
 var arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
 
 var arrayOfTextField = [[UITextField?]]()
-
-
-//DEFINE MATRIX OF THE INT VARIABLES
-
 
 class ViewController: UIViewController {
 
@@ -52,18 +48,10 @@ class ViewController: UIViewController {
     
     // CHECKS IF SOULTION IS CORRECT
     @IBAction func checkSolution(_ sender: Any) {
-    
-        if isChallengeMode == false
-        {
-            regularModeCheckSolution()
-        }
-        else
-        {
-            challengeModeCheckSolution()
-        }
+        checkSolution()
     }
     
-    func regularModeCheckSolution() {
+    func checkSolution() {
         
         //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
         boxOne = Int(boxOneText.text!)!
@@ -79,59 +67,6 @@ class ViewController: UIViewController {
         let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
         
         var i = 0;
-        //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
-        let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
-        var didItWork = true;
-        while i <= 2
-        {
-            if  arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2] != value
-            {
-                
-                didItWork = false;
-            }
-            i = i + 1;
-        }
-        
-        //MAKES SURE ALL COLS MATCH VALUE OF FIRST ROW
-        var j = 0;
-        while j <= 2
-        {
-            if  arrayOfBoxes[j][0] + arrayOfBoxes[j][1] + arrayOfBoxes[j][2] != value
-            {
-                didItWork = false;
-            }
-            j = j + 1;
-        }
-        
-        //DISPLAYS IF SOLUTION WAS CORRECT
-        if didItWork == true
-        {
-            winLabel.text = "Correct";
-        }
-        else
-        {
-            winLabel.text = "Incorrect";
-        }
-    }
-    
-    
-    func challengeModeCheckSolution() {
-        
-        //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
-        boxOne = Int(boxOneText.text!)!
-        boxTwo = Int(boxTwoText.text!)!
-        boxThree = Int(boxThreeText.text!)!
-        boxFour = Int(boxFourText.text!)!
-        boxFive = Int(boxFiveText.text!)!
-        boxSix = Int(boxSixText.text!)!
-        boxSeven = Int(boxSevenText.text!)!
-        boxEight = Int(boxEightText.text!)!
-        boxNine = Int(boxNineText.text!)!
-        
-        let arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
-        
-        var i = 0;
-        
         //MAKES SURE ALL ROWS MATCH VALUE OF FIRST ROW
         let value = arrayOfBoxes[i][0] + arrayOfBoxes[i][1] + arrayOfBoxes[i][2];
         var didItWork = true;
@@ -170,16 +105,21 @@ class ViewController: UIViewController {
     //RANDOMLY ASSIGNS VALUES TO FIELDS
     @IBAction func switchModes(_ sender: Any) {
         
-        if isChallengeMode == false
+        if mode == "regular"
         {
-            isChallengeMode = true
+            mode = "challenge"
             currentMode.text = "Current Mode: Challenge"
             clearFields()
-
+        }
+        else if mode == "challenge"
+        {
+            mode = "extreme"
+            currentMode.text = "Current Mode: Extreme"
+            clearFields()
         }
         else
         {
-            isChallengeMode = false;
+            mode = "regular"
             currentMode.text = "Current Mode: Regular"
             clearFields()
         }
@@ -208,6 +148,12 @@ class ViewController: UIViewController {
             arrayOfBoxes[x][y] = num;
             i = i + 1
         }
+    }
+    
+    func extremeMode(){
+        
+        challengeMode()
+
     }
     
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
@@ -273,9 +219,7 @@ class ViewController: UIViewController {
     
     //CLEARS ALL TEXTFIELDS AND INT VARIABLES
     @IBAction func clearFields(_ sender: Any) {
-       
         clearFields()
-        
     }
     
     func clearFields() {
@@ -304,9 +248,13 @@ class ViewController: UIViewController {
         
         isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
         
-        if isChallengeMode == true
+        if mode == "challenge"
         {
             challengeMode()
+        }
+        else if mode == "extreme"
+        {
+            extremeMode()
         }
         else
         {
