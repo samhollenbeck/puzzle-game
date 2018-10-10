@@ -162,7 +162,7 @@ class ViewController: UIViewController {
         
         challengeMode()
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
+        gameTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
     }
     
     @objc func deleteValues(){
@@ -174,9 +174,10 @@ class ViewController: UIViewController {
             let x = Int(arc4random_uniform(3))
             let y = Int(arc4random_uniform(3))
             
-            if isFieldInChallengeMode[x][y] == true && arrayOfBoxes[x][y] != 0
+            if isFieldInChallengeMode[x][y] == true
             {
-                continue;
+                print("bad")
+                break;
             }
             
             let textField = arrayOfTextField[x][y];
@@ -332,8 +333,10 @@ class ViewController: UIViewController {
             }
             
             let textField = arrayOfTextField[x][y]
-            textField!.text = String(num)
-            arrayOfBoxes[x][y] = num
+            if num != 0{
+                arrayOfBoxes[x][y] = num
+                textField!.text = String(num)
+            }
             i = 1
         }
     }
