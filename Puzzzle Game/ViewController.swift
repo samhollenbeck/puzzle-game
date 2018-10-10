@@ -18,7 +18,7 @@ var boxSeven = 0
 var boxEight = 0
 var boxNine = 0
 
-var gameTimer: Timer!
+var gameTimerExtreme: Timer!
 
 var isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
 
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         
         if mode == "extreme"
         {
-            gameTimer.invalidate()
+            gameTimerExtreme.invalidate()
         }
         
         //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
@@ -128,7 +128,7 @@ class ViewController: UIViewController {
         {
             mode = "regular"
             currentMode.text = "Current Mode: Regular"
-            gameTimer.invalidate()
+            gameTimerExtreme.invalidate()
             clearFields()
         }
     }
@@ -162,7 +162,7 @@ class ViewController: UIViewController {
         
         challengeMode()
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
+        gameTimerExtreme = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
     }
     
     @objc func deleteValues(){
