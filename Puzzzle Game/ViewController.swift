@@ -18,6 +18,8 @@ var boxSeven = 0
 var boxEight = 0
 var boxNine = 0
 
+var gameTimer: Timer!
+
 var isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
 
 var mode = "regular"
@@ -52,6 +54,11 @@ class ViewController: UIViewController {
     }
     
     func checkSolution() {
+        
+        if mode == "extreme"
+        {
+            gameTimer.invalidate()
+        }
         
         //ASSIGN TEXTFIELD VALUES TO INT VARIABLES
         boxOne = Int(boxOneText.text!)!
@@ -121,6 +128,7 @@ class ViewController: UIViewController {
         {
             mode = "regular"
             currentMode.text = "Current Mode: Regular"
+            gameTimer.invalidate()
             clearFields()
         }
     }
@@ -153,7 +161,32 @@ class ViewController: UIViewController {
     func extremeMode(){
         
         challengeMode()
-
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
+    }
+    
+    @objc func deleteValues(){
+        
+        var i = 0
+        
+        while i < 1
+        {
+            let x = Int(arc4random_uniform(3))
+            let y = Int(arc4random_uniform(3))
+            
+            if isFieldInChallengeMode[x][y] == true && arrayOfBoxes[x][y] != 0
+            {
+                continue;
+            }
+            
+            let textField = arrayOfTextField[x][y];
+            //textField!.textColor = UIColor.red
+            textField!.text = String("")
+            replaceFields(num: arrayOfBoxes[x][y])
+            arrayOfBoxes[x][y] = 0
+            
+            i = 1
+        }
     }
     
     //DELETES ANY NON NUMERIC CHARACTERS FROM THE TEXTFIELDS
@@ -165,6 +198,11 @@ class ViewController: UIViewController {
         if str.prefix(1) == "-"
         {
             isNegative = true
+        }
+        
+        if str.prefix(1) == "0"
+        {
+            str.remove(at: str.startIndex)
         }
         
         //CHECK IF EACH CHARACTER IS A NUMBER
@@ -246,28 +284,60 @@ class ViewController: UIViewController {
         boxEight = 0
         boxNine = 0
         
+        for i in 0...2{
+            for j in 0...2{
+                arrayOfBoxes[i][j] = 0
+            }
+        }
+        
         isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
         
-        if mode == "challenge"
-        {
+        if mode == "regular"{
+            regularFont()
+        }
+        
+        if mode == "challenge"{
             challengeMode()
         }
-        else if mode == "extreme"
-        {
+        if mode == "extreme"{
+            regularFont()
             extremeMode()
         }
-        else
+
+    }
+    
+    func regularFont() {
+        for i in 0...2
         {
-            for i in 0...2
+            for j in 0...2
             {
-                for j in 0...2
-                {
-                    let textField = arrayOfTextField[i][j];
-                    textField!.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
-                }
+                let textField = arrayOfTextField[i][j];
+                textField!.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
+                textField!.textColor = UIColor.black
             }
         }
     }
+    
+    func replaceFields(num: Int){
+        
+        var i = 0
+        while i < 1
+        {
+            let x = Int(arc4random_uniform(3))
+            let y = Int(arc4random_uniform(3))
+            
+            if arrayOfBoxes[x][y] != 0
+            {
+                continue;
+            }
+            
+            let textField = arrayOfTextField[x][y]
+            textField!.text = String(num)
+            arrayOfBoxes[x][y] = num
+            i = 1
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
