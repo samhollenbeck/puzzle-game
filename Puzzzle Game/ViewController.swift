@@ -8,6 +8,8 @@
 
 import UIKit
 
+var mode = "regular"
+
 var boxOne = 0
 var boxTwo  = 0
 var boxThree = 0
@@ -21,8 +23,6 @@ var boxNine = 0
 var gameTimerExtreme: Timer!
 
 var isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
-
-var mode = "regular"
 
 var arrayOfBoxes = [[boxOne, boxTwo, boxThree], [boxFour, boxFive, boxSix], [boxSeven, boxEight, boxNine]]
 
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //RANDOMLY ASSIGNS VALUES TO FIELDS
+    //SWITCH GAME MODES - CALLED BY BUTTON ON STORYBOARD
     @IBAction func switchModes(_ sender: Any) {
         
         if mode == "regular"
@@ -133,12 +133,13 @@ class ViewController: UIViewController {
         }
     }
     
+    //RANDOMLY ASSIGNS VALUES TO FIELDS
     func challengeMode() {
         
         arrayOfTextField = [[boxOneText, boxTwoText, boxThreeText], [boxFourText, boxFiveText, boxSixText], [boxSevenText, boxEightText, boxNineText]]
         
         var i = 0
-        while i <= 3
+        while i <= 2
         {
             let x = Int(arc4random_uniform(3))
             let y = Int(arc4random_uniform(3))
@@ -149,10 +150,16 @@ class ViewController: UIViewController {
                 continue;
             }
             
+            //CREATE REFERENCE TO SPECIFIC TEXTFIELD
             let textField = arrayOfTextField[x][y];
+            
+            //ASSIGN THE FIELD AS BEING IN CHALLENGE MODE (UNEDITABLE)
             isFieldInChallengeMode[x][y] = true;
+            
+            //PUT RANDOMLY GENERATED NUMBER INTO FIELD AND MAKE IT BOLD
             textField!.text = String(num);
             textField!.font = UIFont.systemFont(ofSize: 14.0, weight: .bold)
+            
             arrayOfBoxes[x][y] = num;
             i = i + 1
         }
@@ -160,9 +167,11 @@ class ViewController: UIViewController {
     
     func extremeMode(){
         
+        //CREATE RANDOMIZED UNEDITABLE NUMBERS IN FIELDS
         challengeMode()
         
-        gameTimerExtreme = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
+        //SCRAMBLE THE LOCATION OF CERTAIN VALUES IN FIELDS - CALLS DELETEVALUES() EVERY 3 SECONDS
+        gameTimerExtreme = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(deleteValues), userInfo: nil, repeats: true)
     }
     
     @objc func deleteValues(){
@@ -176,15 +185,18 @@ class ViewController: UIViewController {
             
             if isFieldInChallengeMode[x][y] == true
             {
-                print("bad")
-                break;
+                continue
             }
             
             let textField = arrayOfTextField[x][y];
             //textField!.textColor = UIColor.red
+            
+            if textField!.text != ""
+            {
+                replaceFields(num: Int(textField!.text!)!)
+            }
             textField!.text = String("")
-            replaceFields(num: arrayOfBoxes[x][y])
-            arrayOfBoxes[x][y] = 0
+            //arrayOfBoxes[x][y] = 0
             
             i = 1
         }
@@ -201,6 +213,7 @@ class ViewController: UIViewController {
             isNegative = true
         }
         
+        //DON'T ALLOW A SINGLE ZERO IN THE FIELD
         if str.prefix(1) == "0"
         {
             str.remove(at: str.startIndex)
@@ -219,7 +232,11 @@ class ViewController: UIViewController {
         }
         
         sender.text = str;
-        enforceUneditableChallengeFields()
+        
+        if mode == "challenge" || mode == "extreme"
+        {
+            enforceUneditableChallengeFields()
+        }
     }
     
     //RESTRICTS USER FROM CHANGING THE VALUES IN FIELDS THAT WERE RANDOMLY ASSIGNED VALUES
@@ -285,14 +302,17 @@ class ViewController: UIViewController {
         boxEight = 0
         boxNine = 0
         
-        for i in 0...2{
-            for j in 0...2{
+        for i in 0...2
+        {
+            for j in 0...2
+            {
                 arrayOfBoxes[i][j] = 0
             }
         }
         
         isFieldInChallengeMode = [[false, false, false], [false, false, false], [false, false, false]]
         
+        //RECALL GAME METHOD ASED ON CURRENT MODE
         if mode == "regular"{
             regularFont()
         }
@@ -307,7 +327,9 @@ class ViewController: UIViewController {
 
     }
     
+    //SET ALL FIELDS BACK TO A REGULAR WEIGHT
     func regularFont() {
+        
         for i in 0...2
         {
             for j in 0...2
@@ -321,21 +343,24 @@ class ViewController: UIViewController {
     
     func replaceFields(num: Int){
         
+        print("replaceFields")
+        print(num)
         var i = 0
         while i < 1
         {
             let x = Int(arc4random_uniform(3))
             let y = Int(arc4random_uniform(3))
             
-            if arrayOfBoxes[x][y] != 0
+            if isFieldInChallengeMode[x][y]
             {
                 continue;
             }
             
             let textField = arrayOfTextField[x][y]
             if num != 0{
-                arrayOfBoxes[x][y] = num
+                //arrayOfBoxes[x][y] = num
                 textField!.text = String(num)
+                print("test 1")
             }
             i = 1
         }
